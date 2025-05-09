@@ -69,6 +69,17 @@ class SiteController extends Controller
      *
      * @return Response|string
      */
+
+    public function actionView()
+    {
+        return $this->render('single');
+    }
+
+    public function actionCategory()
+    {
+        return $this->render('category');
+    }
+
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
