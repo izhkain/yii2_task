@@ -23,6 +23,10 @@ class Comment extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+
+    const STATUS_ALLOW = 1;
+    const STATUS_DISALLOW = 0;
+
     public static function tableName()
     {
         return 'comment';
@@ -76,4 +80,25 @@ class Comment extends \yii\db\ActiveRecord
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
+    public function getDate()
+    {
+        return Yii::$app->formatter->asDate($this->date, 'php:Y-m-d');
+    }
+
+    public function isAllowed()
+    {
+        return $this->status;
+    }
+
+    public function allow()
+    {
+        $this->status = self::STATUS_ALLOW;
+        return $this->save(false);
+    }
+
+    public function disallow()
+    {
+        $this->status = self::STATUS_DISALLOW;
+        return $this->save(false);
+    }
 }
